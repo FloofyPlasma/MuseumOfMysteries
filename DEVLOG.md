@@ -16,7 +16,8 @@
 
     <details>
     <summary>Screenshots</summary>
-    ![A magenta square on an empty window](screenshots/firstRectangle.png "A magenta square on an empty window.")
+    
+    ![A magenta square on an empty window](./screenshots/firstRectangle.png)
     </details>
 
     </details>
