@@ -1,0 +1,23 @@
+CompileFlags:
+  Add:
+    - -std=c++17
+    - -Iinclude
+    - -I/usr/local/include
+    - -I/usr/include
+    - -Wall
+    - -Wextra
+    - -Werror 
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - modernize-*
+      - readability-*
+    Remove:
+      - cppcoreguidelines-pro-bounds-array-to-pointer-decay
+
+Index:
+  Background: true
+
+Completion:
+  AllScopes: true  
