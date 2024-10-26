@@ -22,7 +22,7 @@ void Engine::Start()
 	auto* event = new SDL_Event; // Use auto to prevent type name duplication
 
 	// Main engine loop
-	while (!quit)
+	while (!this->quit)
 	{
 		Engine::CoreRender();
 		Engine::CoreEvent(event, keyboardState);
@@ -50,6 +50,9 @@ auto Engine::CoreInit() -> bool
 		std::cerr << "SDL_Init error: " << SDL_GetError() << "\n";
 		return false;
 	}
+
+	// Setup a window incase you don't make your own.
+	Engine::SetupWindow(800, 600, false, "Default Window");
 
 	Engine::OnInit(); // Call the game's init function
 

@@ -5,5 +5,6 @@
 
 const static SDL_Color COLOR_BLACK = {0, 0, 0, 255};
 const static SDL_Color COLOR_MAGENTA = {255, 0, 255, 255};
+const static SDL_Color COLOR_WHITE = {255, 255, 255, 255};
 
 #endif // COLORS_H
