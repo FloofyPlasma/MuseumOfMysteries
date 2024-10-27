@@ -4,6 +4,9 @@ My (WIP) game for the Breda University Intake assignment.
 
 See my [devlog](./DEVLOG.md) for progress updates.
 
+I used some free assets for this game, find any neccessary credits in the [credits](./CREDITS.md) file.
+
+
 # TODO List
 
 - [ ] Cross-Platform support
