@@ -21,3 +21,18 @@
     </details>
 
     </details>
+
+- <details>
+    <summary>October 26, 2024: Start reading resources from the disk</summary>
+
+    - Complete: File class
+    - Complete: Resources class
+
+    I drew my texture that I loaded from the disk. I also added the Kenny cursor asset pack.
+
+    <details>
+    <summary>Screenshots</summary>
+
+    ![A cursor on a magenta square](./screenshots/firstTexture.png)
+    </details>
+
