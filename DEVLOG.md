@@ -36,3 +36,19 @@
     ![A cursor on a magenta square](./screenshots/firstTexture.png)
     </details>
 
+- <details>
+  <summary>October 27, 2024: Various improvements + basic animation support</summary>
+  
+  - Complete: Vec2 class
+  - Complete: Animation class
+
+  I created a Vec2 class, it is being used in some places as a replacement for passing positions to objects.
+  I also used that Vec2 class in animations, and added support for them in sprites.
+
+  <details>
+  <summary>Screenshots</summary>
+
+  ![An animated frog sprite](./screenshots/firstAnimation.gif)
+  </details>
+
+  </details>

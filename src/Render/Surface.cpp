@@ -22,6 +22,21 @@ void Surface::Draw(SDL_Texture* texture, SDL_Rect* destinationRect)
 	}
 }
 
+void Surface::Draw(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destinationRect)
+{
+	if (texture != nullptr)
+	{
+		// Draw the texture
+		SDL_RenderCopy(Window::GetRenderer(), texture, sourceRect, destinationRect);
+	}
+	else
+	{
+		// The texture is missing somehow?
+		// Just drow it in a color that stands out
+		Surface::DrawRect(destinationRect, COLOR_MAGENTA, true);
+	}
+}
+
 void Surface::DrawRect(SDL_Rect* destinationRect, SDL_Color color, bool filled)
 {
 	// Change the draw color to the chosen color

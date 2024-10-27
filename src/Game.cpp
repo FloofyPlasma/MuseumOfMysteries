@@ -18,7 +18,12 @@ void Engine::OnInit()
     Engine::SetupWindow(1280, 720, false, "Game Window");
 
     cursor = Resources::GetTexture("Art/Cursors/pointer_b_shaded.png");
-    testSprite.SetTexture(cursor);
+    SDL_Texture* frogGuy = Resources::GetTexture("Art/Characters/Frog/Idle.png");
+    testSprite.SetTexture(frogGuy);
+    testSprite.SetFrameRate(50);
+    testSprite.SetFrameLimits(1, 10);
+    testSprite.SetFrameSize(Vec2(32.0f, 32.0f));
+    testSprite.SetCurrentFrame(1);
 }
 
 void Engine::OnEvent(SDL_Event *event, const Uint8 *keyboardState)
@@ -37,8 +42,7 @@ void Engine::OnRender()
     // Surface::DrawRect(&testRect3, COLOR_WHITE, true);
     Surface::DrawRect(&testRect2, COLOR_MAGENTA, false);
 
-    testSprite.Draw(200, 200, 32, 32);
-    testSprite.Draw(Vec2(400.0f, 400.0f), Vec2(32.0f, 32.0f));
+    testSprite.Draw(Vec2(400.0f, 400.0f), Vec2(64.0f, 64.0f));
 }
 
 void Engine::OnCleanup()
