@@ -17,6 +17,13 @@ void Sprite::Draw(int posX, int posY, int sizeX, int sizeY)
 	Surface::Draw(this->texture, &destinationRect);
 }
 
+void Sprite::Draw(const Vec2& position, const Vec2& scale)
+{
+	SDL_Rect destinationRect = {static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(scale.x), static_cast<int>(scale.y)};
+
+	Surface::Draw(this->texture, &destinationRect);
+}
+
 void Sprite::SetTexture(SDL_Texture* texture)
 {
 	this->texture = texture;

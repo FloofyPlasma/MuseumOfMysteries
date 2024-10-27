@@ -38,6 +38,7 @@ void Engine::OnRender()
     Surface::DrawRect(&testRect2, COLOR_MAGENTA, false);
 
     testSprite.Draw(200, 200, 32, 32);
+    testSprite.Draw(Vec2(400.0f, 400.0f), Vec2(32.0f, 32.0f));
 }
 
 void Engine::OnCleanup()
