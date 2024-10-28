@@ -23,7 +23,7 @@ I used some free assets for this game, find any neccessary credits in the [credi
     - [ ] Sprite/Surface layers (using multiple SDL textures for layering)
     - [ ] Texture atlas loading (to optimize performance and memory use)
     - [ ] Basic effects (e.g., grayscale, tinting, blending) using texture blending modes
-    - [ ] Animation support (e.g., sprite sheets or frame-based animation)
+    - [x] Animation support (e.g., sprite sheets or frame-based animation)
     - [ ] Parallax scrolling for multi-layer backgrounds
     - [ ] Frame rate cap or V-Sync 
 - [ ] UI System (maybe dearimgui?)
