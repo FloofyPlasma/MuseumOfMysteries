@@ -18,8 +18,9 @@ void Cursor::Init(SDL_Texture* cursorTexture, int width, int height)
 void Cursor::Draw()
 {
 	SDL_GetMouseState(&Cursor::cursorRect.x, &Cursor::cursorRect.y);
-    // FIXME: BAD HACK! The cursor sprite is centered, and is offset from the actual cursor position by a few pixels
-    Cursor::cursorRect.x -= 10;
-    Cursor::cursorRect.y -= 8;
+	// FIXME: BAD HACK! The cursor sprite is centered, and is offset from the actual cursor position
+	// by a few pixels
+	Cursor::cursorRect.x -= 10;
+	Cursor::cursorRect.y -= 8;
 	Surface::Draw(Cursor::cursorTexture, &Cursor::cursorRect);
 }
