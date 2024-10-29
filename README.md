@@ -1,4 +1,5 @@
 # MuseumOfMysteries
+[![Hits-of-Code](https://hitsofcode.com/github/floofyplasma/museumofmysteries?branch=main)](https://hitsofcode.com/github/floofyplasma/museumofmysteries/view?branch=main)
 
 My (WIP) game for the Breda University Intake assignment.
 
@@ -6,6 +7,7 @@ See my [devlog](./DEVLOG.md) for progress updates.
 
 I used some free assets for this game, find any neccessary credits in the [credits](./CREDITS.md) file.
 
+You are free to check out my source code and use it as a learning resource, just note I won't be taking contributions for now.
 
 # TODO List
 
