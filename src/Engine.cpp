@@ -2,7 +2,9 @@
 
 #include <iostream>
 
+#include "Core/Resources.h"
 #include "GUI/Colors.h"
+#include "GUI/Cursor.h"
 #include "GUI/Window.h"
 
 Engine::Engine() { }
@@ -54,6 +56,9 @@ auto Engine::CoreInit() -> bool
 	// Setup a window incase you don't make your own.
 	Engine::SetupWindow(800, 600, false, "Default Window");
 
+	// Setup the custom cursor
+	Cursor::Init(Resources::GetTexture("Art/Cursors/pointer_b_shaded.png"), 32, 32);
+
 	Engine::OnInit(); // Call the game's init function
 
 	return true;
@@ -90,6 +95,7 @@ void Engine::CoreRender()
 
 	// I'll eventually want some type of GUI lib stuff
 	// which would go here.
+	Cursor::Draw();
 	
 	SDL_RenderPresent(Window::GetRenderer());
 }

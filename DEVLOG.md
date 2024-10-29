@@ -52,3 +52,21 @@
   </details>
 
   </details>
+
+- <details>
+  <summary>October 28, 2024: Basic mouse handling</summary>
+  
+  - Complete: Mouse class
+  - Complete: Cursor class
+
+  I replaced the default system cursor with a custom one I load from the Cursor asset pack.
+  Right now, the cursor is pretty static, but its laying the framework for expansion in the future.
+  I didn't have a lot of motivation to work today, and I just wanted to get at least something
+  
+  <details>
+  <summary>Screenshots</summary>
+
+  ![A demo of the cursor system](./screenshots/cursorSystem.gif)
+  </details>
+
+  </details>
