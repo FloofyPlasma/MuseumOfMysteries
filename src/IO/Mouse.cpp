@@ -18,5 +18,5 @@ auto Mouse::GetPosition() -> Vec2
     static int mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
 
-    return Vec2 {mouseX, mouseY};
+    return Vec2 { static_cast<float>(mouseX), static_cast<float>(mouseY) };
 }
