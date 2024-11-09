@@ -33,10 +33,12 @@ target_link_libraries(${PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main SDL2_image)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-# Hack to copy the dlls
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/SDL2-build/Debug/SDL2d.dll,${CMAKE_BINARY_DIR}/SDL2-build/Release/SDL2d.dll>"  # Adjust path if necessary
-        "$<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/SDL_image-build/Debug/SDL2_imaged.dll,${CMAKE_BINARY_DIR}/SDL_image-build/Release/SDL2_imaged.dll>"
+# Hack to copy the dlls on windowss
+if (WIN32)
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "$<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/SDL2-build/Debug/SDL2d.dll,${CMAKE_BINARY_DIR}/SDL2-build/Release/SDL2d.dll>"  # Adjust path if necessary
+            "$<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/SDL_image-build/Debug/SDL2_imaged.dll,${CMAKE_BINARY_DIR}/SDL_image-build/Release/SDL2_imaged.dll>"
         $<TARGET_FILE_DIR:${PROJECT_NAME}>
-)
+    )
+endif (WIN32)
