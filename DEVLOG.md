@@ -70,3 +70,23 @@
   </details>
 
   </details>
+
+- <details>
+  <summary>November 8, 2024: Cross platform building</summary>
+
+  I got a Windows laptop a few days ago now, and I had to port my build system over to Windows.
+  I still have to test and make sure that this works on macOS, but it builds the dependencies from source, and makes Visual Studio solution and run with one click.
+  This build system seems to work on Linux too, if thats a platform that I decide that I want to end up supporting in the future.
+  I had some issues with the CMakeLists.txt but I managed to work them out.
+  
+  <details>
+  <summary>Screenshots</summary>
+
+  ![The build working on Windows.](./screenshots/windowsBuild.png)
+
+  And the build on Linux...
+
+  ![The build working on Linux.](./screenshots/linuxBuild.png)
+  </details>
+
+  </details>
