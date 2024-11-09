@@ -14,7 +14,7 @@
 
 // TODO: Make this not hard-coded, and preferably make
 //       it so the game can overwrite this.
-const std::string Resources::ASSETS_PATH = "./assets/";
+const std::string Resources::ASSETS_PATH = "../assets/";
 
 std::unordered_map<std::string, SDL_Texture*> Resources::loadedTextures;
 
