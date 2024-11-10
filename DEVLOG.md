@@ -36,6 +36,8 @@
     ![A cursor on a magenta square](./screenshots/firstTexture.png)
     </details>
 
+    </details>
+
 - <details>
   <summary>October 27, 2024: Various improvements + basic animation support</summary>
   
@@ -91,11 +93,11 @@
 
   </details>
 
-  - <details>
+- <details>
   <summary>November 9, 2024: Refactoring</summary>
 
-  I did a lot of refactoring today. I changed some places to use Vec2 instead of ints for width and height.
-  I also just broke up some large functions into smaller ones.
-  No new behaviors today, just cleanups.
+    I did a lot of refactoring today. I changed some places to use Vec2 instead of ints for width and height.
+    I also just broke up some large functions into smaller ones.
+    No new behaviors today, just cleanups.
   
   </details>
