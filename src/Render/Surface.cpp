@@ -3,9 +3,10 @@
 #include "GUI/Colors.h"
 #include "GUI/Window.h"
 
-Surface::Surface() { }
-
-Surface::~Surface() { }
+void Surface::SetDrawColor(SDL_Color color)
+{
+	SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
+}
 
 void Surface::Draw(SDL_Texture* texture, SDL_Rect* destinationRect)
 {
@@ -18,7 +19,8 @@ void Surface::Draw(SDL_Texture* texture, SDL_Rect* destinationRect)
 	{
 		// The texture is missing somehow?
 		// Just draw it in a color that stands out
-		Surface::DrawRect(destinationRect, COLOR_MAGENTA, true);
+		Surface::SetDrawColor(COLOR_MAGENTA);
+		Surface::DrawRect(destinationRect, true);
 	}
 }
 
@@ -33,28 +35,27 @@ void Surface::Draw(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destina
 	{
 		// The texture is missing somehow?
 		// Just drow it in a color that stands out
-		Surface::DrawRect(destinationRect, COLOR_MAGENTA, true);
+		Surface::SetDrawColor(COLOR_MAGENTA);
+		Surface::DrawRect(destinationRect, true);
 	}
 }
 
-void Surface::DrawRect(SDL_Rect* destinationRect, SDL_Color color, bool filled)
+void Surface::DrawRect(SDL_Rect* destinationRect, bool filled)
 {
-	// Change the draw color to the chosen color
-	SDL_SetRenderDrawColor(Window::GetRenderer(), color.r, color.g, color.b, color.a);
+	SDL_Renderer* renderer = Window::GetRenderer();
 
 	if (filled)
 	{
 		// Draw a filled rect
-		SDL_RenderFillRect(Window::GetRenderer(), destinationRect);
+		SDL_RenderFillRect(renderer, destinationRect);
 	}
 	else
 	{
 		// Draw an empty rect
-		SDL_RenderDrawRect(Window::GetRenderer(), destinationRect);
+		SDL_RenderDrawRect(renderer, destinationRect);
 	}
 
 	// TODO: Should we have it change to whatever the current window clear color
 	//       is or should I just assume that its black?
-	SDL_SetRenderDrawColor(
-			Window::GetRenderer(), COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b, COLOR_BLACK.a);
+	Surface::SetDrawColor(COLOR_BLACK);
 }

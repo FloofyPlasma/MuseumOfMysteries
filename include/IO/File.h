@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 
+// TODO: This class needs some major refactoring, perhaps use a virtual filesytem instead so assets
+//		 can be zipped for better data effeciency?
+
 class File
 {
 	public:
@@ -17,7 +20,7 @@ class File
 
 	/**
 	 * @brief Construct a new File object
-	 *
+	 *s
 	 * @param fileName
 	 * @param truncate
 	 */
@@ -84,6 +87,14 @@ class File
 	 * @return false
 	 */
 	auto IsOpen() const -> bool;
+
+	/**
+	 * @brief Checks if a file is ready for usage
+	 *
+	 * @return true
+	 * @return false
+	 */
+	auto IsReady() const -> bool;
 
 	/**
 	 * @brief Get the Length of the file

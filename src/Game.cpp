@@ -15,7 +15,7 @@ static Sprite testSprite;
 
 void Engine::OnInit()
 {
-    Engine::SetupWindow(1280, 720, false, "Game Window");
+	Engine::SetupWindow(Vec2(1280, 720), false, "Game Window");
 
     cursor = Resources::GetTexture("Art/Cursors/pointer_b_shaded.png");
     SDL_Texture* frogGuy = Resources::GetTexture("Art/Characters/Frog/Idle.png");
@@ -38,9 +38,10 @@ void Engine::OnUpdate()
 
 void Engine::OnRender()
 {
-    Surface::DrawRect(&testRect, COLOR_MAGENTA, true);
+	Surface::SetDrawColor(COLOR_MAGENTA);
+    Surface::DrawRect(&testRect, true);
     // Surface::DrawRect(&testRect3, COLOR_WHITE, true);
-    Surface::DrawRect(&testRect2, COLOR_MAGENTA, false);
+    Surface::DrawRect(&testRect2, false);
 
     testSprite.Draw(Vec2(400.0f, 400.0f), Vec2(64.0f, 64.0f));
     testSprite.Draw(Vec2(450.0f, 450.0f), Vec2(20.0f, 60.0f));

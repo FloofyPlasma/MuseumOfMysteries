@@ -20,70 +20,77 @@ std::unordered_map<std::string, SDL_Texture*> Resources::loadedTextures;
 
 auto Resources::GetTexture(std::string filePath) -> SDL_Texture*
 {
-    SDL_Texture* loadedTexture = nullptr;
-    // Turn the path relative to the assets folder into one
-    // relative to the executable working directory.
-    filePath = ASSETS_PATH + filePath;
+	filePath = Resources::GetAssetFilePath(filePath);
 
-    if (Resources::loadedTextures.count(filePath) == 0)
-    {
-        // We didn't load this texture yet, read from disk
-        std::cout << "Loading texture " << filePath << "\n";
+	// If we have the texture already loaded in memory, return it
+	if (Resources::loadedTextures.count(filePath) > 0)
+	{
+		return Resources::loadedTextures[filePath];
+	}
 
-        // Read the texture from disk
-        // TODO: Clean up this function
-        std::vector<char> buffer;
+	// Otherwise, load the texture from disk
+	return Resources::LoadTextureFromFile(filePath);
+}
 
-        File textureFile(filePath);
+std::string Resources::GetAssetFilePath(const std::string& relativePath)
+{
+	return Resources::ASSETS_PATH + relativePath;
+}
 
-        SDL_RWops* data = nullptr;
+SDL_Texture* Resources::LoadTextureFromFile(const std::string& filePath)
+{
+	SDL_Texture* loadedTexture = nullptr;
 
-        if (textureFile.Read(buffer) && !buffer.empty())
-        {
-            data = SDL_RWFromMem(buffer.data(), buffer.size());
-        }
+	std::cout << "Loading texture " << filePath << "\n";
 
-        if (data != nullptr)
-        {
-            // Load the texture
-            loadedTexture = IMG_LoadTexture_RW(Window::GetRenderer(), data, 0);
-        }
+	std::vector<char> buffer;
+	File textureFile(filePath);
 
-        // Process the loaded texture
-        if (loadedTexture != nullptr)
-        {
-            // If we successfully loaded the texture, write it to our texture cache.
-            Resources::loadedTextures[filePath] = loadedTexture;
-        }
-        else
-        {
-            std::cerr << "!! [ERROR] !! Failed to access file at \"" << filePath << "\" \n";
+	SDL_RWops* data = nullptr;
 
-            if (Window::GetRenderer() == nullptr)
-            {
-                std::cerr << " The window's renderer is null. \n"; 
-            }
-        }
-    }
-    else
-    {
-        // Retrieve the texture from the cache
-        loadedTexture = Resources::loadedTextures[filePath];
-    }
+    if (!textureFile.Read(buffer) || buffer.empty())
+	{
+		std::cerr << "!! [ERROR] !! Failed to read texture file at \"" << filePath << "\" \n";
+		return nullptr;
+	}
 
-    return loadedTexture;
+	data = SDL_RWFromMem(buffer.data(), buffer.size());
+
+	if (data == nullptr)
+	{
+		std::cerr << "!! [ERROR] !! Failed to create SDL_RWops from memory for file \"" << filePath
+							<< "\" \n";
+		return nullptr;
+	}
+
+	loadedTexture = IMG_LoadTexture_RW(Window::GetRenderer(), data, 0);
+
+	if (loadedTexture == nullptr)
+	{
+		std::cerr << "!! [ERROR] !! Failed to load texture from file \"" << filePath << "\" \n";
+		return nullptr;
+	}
+
+	// Cache the loaded texture
+	Resources::loadedTextures[filePath] = loadedTexture;
+
+	return loadedTexture;
 }
 
 void Resources::UnloadTexture(std::string filePath)
 {
-    // Check if the texture is currently loaded
-    if (Resources::loadedTextures.count(filePath) != 0)
-    {
-        SDL_Texture* texture = Resources::loadedTextures[filePath];
-        
-        SDL_DestroyTexture(texture);
-    }
+	if (Resources::loadedTextures.count(filePath) == 0)
+	{
+		// We did not have the texture loaded already
+		// TODO: Shoudl this give an error?
+		return;
+	}
 
-    // Erase all instances
-    Resources::loadedTextures.erase(filePath);
+	SDL_Texture* texture = Resources::loadedTextures[filePath];
+
+	// Destroy the texture
+	SDL_DestroyTexture(texture);
+
+	// Clear our cache of this texture
+	Resources::loadedTextures.erase(filePath);
 }

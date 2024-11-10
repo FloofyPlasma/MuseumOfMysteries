@@ -7,16 +7,14 @@
 #include "GUI/Cursor.h"
 #include "GUI/Window.h"
 
-Engine::Engine() { }
-
-Engine::~Engine() { }
-
 void Engine::Start()
 {
 	if (!Engine::CoreInit())
 	{
 		// Something went wring during the initialization internally, abort
-		return;
+		std::cerr << "Something went wrong while trying to initialize the engine. See above for errors."
+							<< std::endl;
+		exit(EXIT_FAILURE);
 	}
 
 	const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
@@ -38,30 +36,51 @@ void Engine::Start()
 
 void Engine::Stop() { this->quit = true; }
 
-void Engine::SetupWindow(int width, int height, bool fullScreen, std::string windowTitle)
+void Engine::SetupWindow(Vec2 dimensions, bool fullScreen, const std::string& windowTitle)
 {
-	Window::SetWindowProperties(width, height, fullScreen, windowTitle);
+	Window::SetWindowProperties(dimensions, fullScreen, windowTitle);
 }
 
 auto Engine::CoreInit() -> bool
 {
 	this->quit = false;
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		std::cerr << "SDL_Init error: " << SDL_GetError() << "\n";
 		return false;
 	}
 
 	// Setup a window incase you don't make your own.
-	Engine::SetupWindow(800, 600, false, "Default Window");
+	Engine::SetupWindow(Vec2(1280, 720), false, "Default Window");
 
 	// Setup the custom cursor
-	Cursor::Init(Resources::GetTexture("Art/Cursors/pointer_b_shaded.png"), 32, 32);
+	Cursor::Init(Resources::GetTexture("Art/Cursors/pointer_b_shaded.png"), Vec2(32, 32));
 
 	Engine::OnInit(); // Call the game's init function
 
 	return true;
+}
+
+void Engine::CoreUpdate()
+{
+	Engine::OnUpdate(); // Call the game's update function
+}
+
+void Engine::CoreRender()
+{
+	// TODO: If we change the clear color, make this not hardcoded
+	SDL_Renderer* renderer = Window::GetRenderer();
+	SDL_SetRenderDrawColor(renderer, COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b, COLOR_BLACK.a);
+	SDL_RenderClear(renderer);
+
+	Engine::OnRender(); // Call the game's render function
+
+	// I'll eventually want some type of GUI lib stuff
+	// which would go here.
+	Cursor::Draw();
+	
+	SDL_RenderPresent(renderer);
 }
 
 void Engine::CoreEvent(SDL_Event* event, const Uint8* keyboardState)
@@ -78,26 +97,6 @@ void Engine::CoreEvent(SDL_Event* event, const Uint8* keyboardState)
 
 		Engine::OnEvent(event, keyboardState);
 	}
-}
-
-void Engine::CoreUpdate()
-{
-	Engine::OnUpdate(); // Call the game's update function
-}
-
-void Engine::CoreRender()
-{
-	// TODO: If we change the clear color, make this not hardcoded
-	SDL_SetRenderDrawColor(Window::GetRenderer(), COLOR_BLACK.r, COLOR_BLACK.g, COLOR_BLACK.b, COLOR_BLACK.a);
-	SDL_RenderClear(Window::GetRenderer());
-
-	Engine::OnRender(); // Call the game's render function
-
-	// I'll eventually want some type of GUI lib stuff
-	// which would go here.
-	Cursor::Draw();
-	
-	SDL_RenderPresent(Window::GetRenderer());
 }
 
 void Engine::CoreCleanup()

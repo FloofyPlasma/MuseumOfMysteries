@@ -11,18 +11,6 @@ class Surface
 {
 	public:
 	/**
-	 * @brief Construct a new Surface object
-	 *
-	 */
-	Surface();
-
-	/**
-	 * @brief Destroy the Surface object
-	 *
-	 */
-	virtual ~Surface();
-
-	/**
 	 * @brief Draw a texture to a rectangle
 	 *
 	 * @param texture The texture to draw
@@ -43,10 +31,11 @@ class Surface
 	 * @brief Draws a colored rectangle
 	 *
 	 * @param destinationRect The rectangle to draw to
-	 * @param color The color to draw
 	 * @param filled
 	 */
-	static void DrawRect(SDL_Rect* destinationRect, SDL_Color color, bool filled);
+	static void DrawRect(SDL_Rect* destinationRect, bool filled);
+
+	static void SetDrawColor(SDL_Color color);
 
 	private:
 };

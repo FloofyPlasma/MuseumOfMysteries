@@ -23,38 +23,34 @@ void Sprite::Draw(int posX, int posY, int sizeX, int sizeY)
 	Surface::Draw(this->texture, &destinationRect);
 }
 
-
 void Sprite::Draw(const Vec2& position, const Vec2& scale)
 {
-	SDL_Rect destinationRect = {static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(scale.x), static_cast<int>(scale.y)};
+	SDL_Rect destinationRect = { static_cast<int>(position.x), static_cast<int>(position.y),
+		static_cast<int>(scale.x), static_cast<int>(scale.y) };
 
-#ifdef VERBOSE_WARNINGS
-	if (this->animationRect.w < 0)
-	{
-		// Give a warning just incase they forgot to set animation properties.
-		std::cerr << "!! [WARNING] !! Sprite " << this << " has an undefined source frame size!\n";
-	}
-#endif
 	// Calculate current frame position
-	SDL_Rect sourceRect;
+	SDL_Rect sourceRect = Sprite::CalculateSourceRectForAnimation();
+	Surface::Draw(this->texture, &sourceRect, &destinationRect);
+
+	// Update the animation after rendering
+	this->animationControl.Tick();
+}
+
+SDL_Rect Sprite::CalculateSourceRectForAnimation()
+{
+	SDL_Rect sourceRect = { 0, 0, 0, 0 };
 	if (this->framesHorizontal != 0)
 	{
-		sourceRect.x = (this->animationControl.GetCurrentFrame() % this->framesHorizontal) * this->animationRect.w;
-		sourceRect.y = (this->animationControl.GetCurrentFrame() / this->framesHorizontal) * this->animationRect.h;
-	}
-	else
-	{
-		sourceRect.x = 0;
-		sourceRect.y = 0;
+		sourceRect.x = (this->animationControl.GetCurrentFrame() % this->framesHorizontal)
+				* this->animationRect.w;
+		sourceRect.y = (this->animationControl.GetCurrentFrame() / this->framesHorizontal)
+				* this->animationRect.h;
 	}
 
 	sourceRect.w = this->animationRect.w;
 	sourceRect.h = this->animationRect.h;
 
-	Surface::Draw(this->texture, &sourceRect, &destinationRect);
-	
-	// Update the animation after rendering
-	this->animationControl.Tick();
+	return sourceRect;
 }
 
 void Sprite::SetTexture(SDL_Texture* texture)
@@ -74,12 +70,6 @@ void Sprite::SetAnimation(const Animation& animation)
 	this->animationControl = animation;
 }
 
-void Sprite::SetFrameLimits(int minFrame, int maxFrame)
-{
-	this->animationControl.SetMinFrame(minFrame);
-	this->animationControl.SetMaxFrame(maxFrame);
-}
-
 void Sprite::SetFrameSize(const Vec2& size)
 {
 	this->animationRect.w = size.x;
@@ -88,15 +78,13 @@ void Sprite::SetFrameSize(const Vec2& size)
 	Sprite::SetCurrentFrame(this->animationControl.GetCurrentFrame());
 }
 
-void Sprite::SetFrameRate(Uint16 frameRate)
-{
-	this->animationControl.SetFrameRate(frameRate);
-}
+void Sprite::SetFrameRate(Uint16 frameRate) { this->animationControl.SetFrameRate(frameRate); }
 
 void Sprite::SetCurrentFrame(int frame)
 {
 	// Calculate the frame count
-	if (this->spriteRect.w <= 0 || this->animationRect.w <= 0 || this->spriteRect.h <= 0 || this->animationRect.h <= 0)
+	if (this->spriteRect.w <= 0 || this->animationRect.w <= 0 || this->spriteRect.h <= 0
+			|| this->animationRect.h <= 0)
 	{
 		this->framesHorizontal = 1;
 		this->framesVertical = 1;
@@ -108,4 +96,10 @@ void Sprite::SetCurrentFrame(int frame)
 	}
 
 	this->animationControl.SetCurrentFrame(frame);
+}
+
+void Sprite::SetFrameLimits(int minFrame, int maxFrame)
+{
+	this->animationControl.SetMinFrame(minFrame);
+	this->animationControl.SetMaxFrame(maxFrame);
 }

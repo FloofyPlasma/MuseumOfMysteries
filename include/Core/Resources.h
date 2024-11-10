@@ -27,11 +27,12 @@ class Resources
 	static void UnloadTexture(std::string filePath);
 
 	private:
-	Resources();
-	~Resources();
 
-    // Resource cache
-    static std::unordered_map<std::string, SDL_Texture*> loadedTextures;
+	// Resource cache
+	static std::unordered_map<std::string, SDL_Texture*> loadedTextures;
+
+	static std::string GetAssetFilePath(const std::string& relativePath);
+	static auto LoadTextureFromFile(const std::string& filePath) -> SDL_Texture*;
 };
 
 #endif // RESOURCES_H

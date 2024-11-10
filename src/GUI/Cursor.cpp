@@ -3,16 +3,18 @@
 #include "Render/Surface.h"
 
 // Bad hack?
-SDL_Texture* Cursor::cursorTexture = nullptr;
 SDL_Rect Cursor::cursorRect;
 
-void Cursor::Init(SDL_Texture* cursorTexture, int width, int height)
+SDL_Texture* Cursor::cursorTexture;
+
+void Cursor::Init(SDL_Texture* cursorTexture, Vec2 cursorDimensions)
 {
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetRelativeMouseMode(SDL_FALSE);
 
 	Cursor::cursorTexture = cursorTexture;
-	Cursor::cursorRect = { 0, 0, width, height };
+	Cursor::cursorRect
+			= { 0, 0, static_cast<int>(cursorDimensions.x), static_cast<int>(cursorDimensions.y) };
 }
 
 void Cursor::Draw()

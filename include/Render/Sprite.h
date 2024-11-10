@@ -95,6 +95,12 @@ class Sprite
 	int framesVertical;
 
 	Animation animationControl;
+
+	/**
+	 * @brief Calculates the sprite rectangle based on the current animation frame
+	 *
+	 */
+	SDL_Rect CalculateSourceRectForAnimation();
 };
 
 #endif // SPRITE_H

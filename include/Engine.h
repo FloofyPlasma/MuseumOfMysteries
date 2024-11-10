@@ -5,30 +5,21 @@
 
 #include <SDL2/SDL.h>
 
+#include "Core/Vec2.h"
+
 class Engine
 {
 	public:
-	/**
-	 * @brief Construct a new Engine object
-	 *
-	 */
-	Engine();
 
-	/**
-	 * @brief Destroy the Engine object
-	 *
-	 */
-	virtual ~Engine();
 
 	/**
 	 * @brief Creates a window, and sets properties
 	 *
-	 * @param width
-	 * @param height
+	 * @param dimensions
 	 * @param fullScreen defaults to false
 	 * @param windowTitle
 	 */
-	static void SetupWindow(int width, int height, bool fullScreen, std::string windowTitle);
+	static void SetupWindow(Vec2 dimensions, bool fullScreen, const std::string& windowTitle);
 
 	/**
 	 * @brief Starts the engine

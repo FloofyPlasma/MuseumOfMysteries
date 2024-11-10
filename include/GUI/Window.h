@@ -5,19 +5,20 @@
 
 #include <SDL2/SDL.h>
 
+#include "Core/Vec2.h"
+
 class Window
 {
 	public:
 	/**
 	 * @brief Sets window properties
 	 *
-	 * @param width
-	 * @param height
+	 * @param dimensions
 	 * @param fullScreen
 	 * @param windowTitle
 	 */
-	static auto SetWindowProperties(int width, int height, bool fullScreen,
-			const std::string& windowTitle = "Game Window") -> bool;
+	static auto SetWindowProperties(
+			Vec2 dimensions, bool fullScreen, const std::string& windowTitle = "Game Window") -> bool;
 
 	/**
 	 * @brief Basic built-in event handling
@@ -37,10 +38,7 @@ class Window
 	 *
 	 * @return SDL_Renderer*
 	 */
-	static inline auto GetRenderer() -> SDL_Renderer*
-	{
-		return Window::rendererHandle;
-	}
+	static inline auto GetRenderer() -> SDL_Renderer* { return Window::rendererHandle; }
 
 	/**
 	 * @brief Checks if the window was initialized
@@ -50,9 +48,13 @@ class Window
 	 */
 	static inline auto IsInitialized() -> bool;
 
+	/**
+	 * @brief Cleans up the window and its renderer
+	 *
+	 */
+	static void Destroy();
+
 	private:
-	Window();
-	~Window();
 
 	static SDL_Window* windowHandle;
 	static SDL_Renderer* rendererHandle;
@@ -70,6 +72,22 @@ class Window
 	 * @return false if window creation failed
 	 */
 	static bool Init();
+
+	/**
+	 * @brief Creates a window
+	 *
+	 * @return true if window creation succeeded
+	 * @return false if window creation failed
+	 */
+	static auto CreateWindow() -> bool;
+
+	/**
+	 * @brief Creates a renderer
+	 *
+	 * @return true if renderer creation succeeded
+	 * @return false if renderer creation failed
+	 */
+	static auto CreateRenderer() -> bool;
 };
 
 #endif // WINDOW_H
