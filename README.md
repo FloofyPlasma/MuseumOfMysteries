@@ -12,9 +12,9 @@ You are free to check out my source code and use it as a learning resource, just
 # TODO List
 
 - [ ] Cross-Platform support
-    - [ ] Visual Studio Solution
+    - [x] Visual Studio Solution
     - [ ] *nix CMakeLists.txt
-    - [ ] Bundle all dependencies as a submodule
+    - [x] Bundle all dependencies as a submodule
     - [ ] Automated build scripts
 - [ ] Audio
     - [ ] Multi-Channel audio support
