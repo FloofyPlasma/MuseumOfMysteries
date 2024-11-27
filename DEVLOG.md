@@ -101,3 +101,18 @@
     No new behaviors today, just cleanups.
   
   </details>
+
+- <details>
+  <summary>November 27, 2024: Entity class</summary>
+
+  Finally got over a block of motivation, and impemented a basic entity class.
+  A root entity will be the "scene" and other objects will be added to it as children.
+  It will have several child entities in that entity to classify different layers, foreground, background etc.
+
+  <details>
+  <summary>Screenshots</summary>
+
+  ![Scene drawn using the new entity class.](./screenshots/enityClassRender.png)
+  </details>
+
+  </details>
